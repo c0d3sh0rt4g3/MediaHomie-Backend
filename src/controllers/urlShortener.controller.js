@@ -1,5 +1,3 @@
-// controllers/urlShortener.controller.js
-
 import UrlShortener from '../models/urlShortener.model.js';
 import { nanoid } from 'nanoid';
 
@@ -35,7 +33,7 @@ const urlShortenerController = {
 
       return res.status(201).json({
         message: 'Short URL created successfully',
-        shortUrl: `${req.protocol}://${req.get('host')}/${shortId}`,
+        shortUrl: `${req.protocol}://${req.get('host')}/url/${shortId}`,
         shortId,
         originalUrl
       });
@@ -70,6 +68,20 @@ const urlShortenerController = {
     } catch (error) {
       console.error('Error during redirect:', error);
       res.status(500).json({ message: 'Internal server error' });
+    }
+  },
+
+  /**
+   * Get all shortened urls
+   * */
+  getAllShortenedUrls: async (req, res) => {
+    try {
+      const shortenedUrls = await UrlShortener.find({});
+
+      res.status(200).json({ shortenedUrls });
+    } catch (error) {
+      console.error('Error fetching shortened urls:', error);
+      res.status(500).json({ message: 'Server error while fetching shortened urls' });
     }
   }
 };

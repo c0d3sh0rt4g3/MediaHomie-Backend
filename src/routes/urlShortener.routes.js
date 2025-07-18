@@ -3,7 +3,10 @@ import urlShortenerController from "../controllers/urlShortener.controller.js";
 
 const router = Router();
 
-router.post('/url/shorten', urlShortenerController.createShortUrl);
+const commonHeader = "/url"
+
+router.post('/shorten', urlShortenerController.createShortUrl);
 router.get('/:shortId', urlShortenerController.redirectToOriginalUrl);
+router.get('/', urlShortenerController.getAllShortenedUrls);
 
 export default router;

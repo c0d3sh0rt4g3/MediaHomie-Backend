@@ -40,7 +40,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use('/users', userRoutes);
-app.use('/', urlShortenerRoutes);
+app.use('/url', urlShortenerRoutes);
 
 app.listen(PORT, async () => {
   await connectDB();
