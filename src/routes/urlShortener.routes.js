@@ -8,5 +8,6 @@ const commonHeader = "/url"
 router.post('/shorten', urlShortenerController.createShortUrl);
 router.get('/:shortId', urlShortenerController.redirectToOriginalUrl);
 router.get('/', urlShortenerController.getAllShortenedUrls);
+router.delete('/:id', urlShortenerController.deleteShortenedUrl);
 
 export default router;

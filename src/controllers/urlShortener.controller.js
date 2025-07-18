@@ -83,7 +83,26 @@ const urlShortenerController = {
       console.error('Error fetching shortened urls:', error);
       res.status(500).json({ message: 'Server error while fetching shortened urls' });
     }
-  }
+  },
+
+  /**
+   * Delete a specified shortened url
+   * */
+  deleteShortenedUrl: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const urlShortener = await UrlShortener.findByIdAndDelete(id);
+      if (!urlShortener) {
+        return res.status(404).json({ message: 'Shortened url not found' });
+      }
+
+      res.status(200).json({ message: 'Shortened url deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting shortened url:', error);
+      res.status(500).json({ message: 'Server error while deleting shortened url' });
+    }
+  },
 };
 
 export default urlShortenerController;
