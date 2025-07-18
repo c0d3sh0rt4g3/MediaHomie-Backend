@@ -1,7 +1,9 @@
-import userRoutes from "./routes/user.routes.js";
 import {connectDB} from "./config/db.js";
 import cors from "cors";
 import express from "express";
+
+import urlShortenerRoutes from "./routes/urlShortener.routes.js";
+import userRoutes from "./routes/user.routes.js";
 
 const app = express();
 app.use(express.json());
@@ -38,6 +40,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use('/users', userRoutes);
+app.use('/', urlShortenerRoutes);
 
 app.listen(PORT, async () => {
   await connectDB();
