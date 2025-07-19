@@ -103,6 +103,25 @@ const urlShortenerController = {
       res.status(500).json({ message: 'Server error while deleting shortened url' });
     }
   },
+  /**
+  * Get all shortened URLs by user ID
+  */
+  getUserShortenedUrls: async (req, res) => {
+    try {
+      const ownerId = req.user?.id;
+
+      if (!ownerId) {
+        return res.status(401).json({ message: 'Unauthorized: User ID not found in request' });
+      }
+
+      const userUrls = await UrlShortener.find({ owner: ownerId });
+
+      res.status(200).json({ shortenedUrls: userUrls });
+    } catch (error) {
+      console.error('Error fetching user shortened urls:', error);
+      res.status(500).json({ message: 'Server error while fetching user shortened urls' });
+    }
+  }
 };
 
 export default urlShortenerController;
